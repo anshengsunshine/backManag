@@ -13,7 +13,6 @@ class ASRequest {
   loading?: LoadingInstance
 
   constructor(config: ASRequestConfig) {
-
     // 创建 axios 实例
     this.instance = axios.create(config)
 
