@@ -8,5 +8,6 @@ export interface ASRequestInterceptors {
 }
 
 export interface ASRequestConfig extends AxiosRequestConfig {
-  interceptors?: ASRequestInterceptors
+  interceptors?: ASRequestInterceptors,
+  showLoading?: boolean
 }
