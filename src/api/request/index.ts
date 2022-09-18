@@ -83,19 +83,22 @@ class ASRequest {
       this.showLoading = DEFAULT_loading
     }
 
-    this.instance.request(config).then((res) => {
-      if (config.interceptors?.responseInterceptor) {
-        res = config.interceptors.responseInterceptor(res)
-      }
-      console.log(res)
+    this.instance
+      .request(config)
+      .then((res) => {
+        if (config.interceptors?.responseInterceptor) {
+          res = config.interceptors.responseInterceptor(res)
+        }
+        console.log(res)
 
-      // 将 showLoading 设置为 true，这样不会影响下一次请求
-      this.showLoading = DEFAULT_LOADING
-    }).catch(err => {
-      // 将 showLoading 设置为 true，这样不会影响下一次请求
-      this.showLoading = DEFAULT_LOADING
-      return err
-    })
+        // 将 showLoading 设置为 true，这样不会影响下一次请求
+        this.showLoading = DEFAULT_LOADING
+      })
+      .catch((err) => {
+        // 将 showLoading 设置为 true，这样不会影响下一次请求
+        this.showLoading = DEFAULT_LOADING
+        return err
+      })
   }
 }
 
