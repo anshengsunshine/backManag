@@ -34,7 +34,7 @@ class ASRequest {
     // 2.添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器：请求成功拦截')
+        // console.log('所有的实例都有的拦截器：请求成功拦截')
 
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -47,26 +47,26 @@ class ASRequest {
         return config
       },
       (err) => {
-        console.log('所有的实例都有的拦截器：请求失败拦截')
+        // console.log('所有的实例都有的拦截器：请求失败拦截')
         return err
       }
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例都有的拦截器：响应成功拦截')
+        // console.log('所有的实例都有的拦截器：响应成功拦截')
 
         // 将 loading 移除
         this.loading?.close()
 
         const data = res.data
         if (data.retureCode === '-1001') {
-          console.log('请求失败,错误信息')
+          // console.log('请求失败,错误信息')
         } else {
           return data
         }
       },
       (err) => {
-        console.log('所有的实例都有的拦截器：响应失败拦截')
+        // console.log('所有的实例都有的拦截器：响应失败拦截')
         // 将 loading 移除
         this.loading?.close()
         // 判断不同的 HttpErrorCode 显示不同的错误信息
