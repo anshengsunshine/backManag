@@ -78,7 +78,7 @@ class ASRequest {
     )
   }
 
-  request<T>(config: ASRequestConfig): Promise<T> {
+  request<T>(config: ASRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1. 单个请求对 请求config 的处理
       if (config.interceptors?.requestInterceptor) {
@@ -101,28 +101,28 @@ class ASRequest {
           // 2. 将 showLoading 设置为 true，这样不会影响下一次请求
           this.showLoading = DEFAULT_LOADING
 
-          // 3. 返回 res
+          // 3. 将结果 resolve 返回出去
           resolve(res)
         })
         .catch((err) => {
           // 将 showLoading 设置为 true，这样不会影响下一次请求
           this.showLoading = DEFAULT_LOADING
-          // 3. 返回 res
+          // 3. 返回 err
           reject(err)
         })
     })
   }
 
-  get<T>(config: ASRequestConfig): Promise<T> {
+  get<T>(config: ASRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(config: ASRequestConfig): Promise<T> {
+  post<T>(config: ASRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T>(config: ASRequestConfig): Promise<T> {
+  delete<T>(config: ASRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: ASRequestConfig): Promise<T> {
+  patch<T>(config: ASRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
