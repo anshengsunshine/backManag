@@ -8,10 +8,10 @@ const asRequest = new ASRequest({
     requestInterceptor: (config) => {
       console.log('请求成功的拦截')
       // 携带 token 拦截
-      const token = ''
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-      }
+      // const token = ''
+      // if (token) {
+      //   config.headers.Authorization = `Bearer ${token}`
+      // }
       return config
     },
     requestInterceptorCatch(error) {
