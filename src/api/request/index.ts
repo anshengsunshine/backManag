@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { AxiosInstance } from 'axios'
 import type { ASRequestInterceptors, ASRequestConfig } from './type'
 import { ElLoading } from 'element-plus'
 import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
@@ -13,11 +13,16 @@ class ASRequest {
   loading?: LoadingInstance
 
   constructor(config: ASRequestConfig) {
+
+    // 创建 axios 实例
     this.instance = axios.create(config)
+
+    // 保存基本信息
     this.showLoading = config.showLoading ?? DEFAULT_LOADING
     this.interceptors = config.interceptors
 
-    // 从 config 中取出的拦截其实对应的实例的拦截器
+    // 使用拦截器
+    // 1.从 config 中取出的拦截其实对应的实例的拦截器
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch
@@ -27,7 +32,7 @@ class ASRequest {
       this.interceptors?.responseInterceptorCatch
     )
 
-    // 添加所有的实例都有的拦截器
+    // 2.添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
         console.log('所有的实例都有的拦截器：请求成功拦截')
@@ -74,31 +79,52 @@ class ASRequest {
     )
   }
 
-  request(config: ASRequestConfig): void {
-    if (config.interceptors?.requestInterceptor) {
-      config = config.interceptors.requestInterceptor(config)
-    }
+  request<T>(config: ASRequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // 1. 单个请求对 请求config 的处理
+      if (config.interceptors?.requestInterceptor) {
+        config = config.interceptors.requestInterceptor(config)
+      }
 
-    if (config.showLoading === false) {
-      this.showLoading = DEFAULT_loading
-    }
+      // 2. 判断是否需要显示 loading
+      if (config.showLoading === false) {
+        this.showLoading = config.showLoading
+      }
 
-    this.instance
-      .request(config)
-      .then((res) => {
-        if (config.interceptors?.responseInterceptor) {
-          res = config.interceptors.responseInterceptor(res)
-        }
-        console.log(res)
+      this.instance
+        .request<any, T>(config)
+        .then((res) => {
+          // 1. 单个请求对数据的处理
+          if (config.interceptors?.responseInterceptor) {
+            res = config.interceptors.responseInterceptor(res)
+          }
 
-        // 将 showLoading 设置为 true，这样不会影响下一次请求
-        this.showLoading = DEFAULT_LOADING
-      })
-      .catch((err) => {
-        // 将 showLoading 设置为 true，这样不会影响下一次请求
-        this.showLoading = DEFAULT_LOADING
-        return err
-      })
+          // 2. 将 showLoading 设置为 true，这样不会影响下一次请求
+          this.showLoading = DEFAULT_LOADING
+
+          // 3. 返回 res
+          resolve(res)
+        })
+        .catch((err) => {
+          // 将 showLoading 设置为 true，这样不会影响下一次请求
+          this.showLoading = DEFAULT_LOADING
+          // 3. 返回 res
+          reject(err)
+        })
+    })
+  }
+
+  get<T>(config: ASRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'GET' })
+  }
+  post<T>(config: ASRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' })
+  }
+  delete<T>(config: ASRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
+  }
+  patch<T>(config: ASRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
 
