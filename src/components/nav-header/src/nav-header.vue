@@ -1,10 +1,9 @@
 <template>
   <div class="nav-header">
-    <i
-      class="fold-menu"
-      :class="isFold ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
-      @click="handleFoldClick"
-    ></i>
+    <div class="fold-menu" @click="handleFoldClick">
+      <i-ep-Fold v-if="isFold" class="el-icon-s-fold" />
+      <i-ep-Expand v-else class="el-icon-s-unfold" />
+    </div>
   </div>
 </template>
 
