@@ -33,12 +33,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       console.log('注册动态路由')
       MapMenusToRoutes(userMenus)
       // userMenus => routes
-      // const routes = mapMenusToRoutes(userMenus)
+      const routes = MapMenusToRoutes(userMenus)
 
-      // // 将routes => router.main.children
-      // routes.forEach((route) => {
-      //   router.addRoute('main', route)
-      // })
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {},
