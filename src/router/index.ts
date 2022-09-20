@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/main',
     component: () => import('@/views/main/Main.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 
@@ -28,6 +33,11 @@ router.beforeEach((to) => {
     const token = localCache.getCache('token')
     if (!token) {
       return '/login'
+    }
+  }
+  if (to.path.indexOf('/main') !== -1) {
+    if (to.name === 'notFound') {
+      to.name = 'user'
     }
   }
 })
