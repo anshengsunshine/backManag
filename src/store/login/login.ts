@@ -2,6 +2,7 @@ import { Module } from 'vuex'
 import { IRootState } from '../type'
 import { ILoginState } from './type'
 import localCache from '@/utils/cache'
+import { MapMenusToRoutes } from '@/utils/map-menus'
 import {
   accountLoginRequest,
   requestUserInfoById,
@@ -28,6 +29,16 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      console.log('注册动态路由')
+      MapMenusToRoutes(userMenus)
+      // userMenus => routes
+      // const routes = mapMenusToRoutes(userMenus)
+
+      // // 将routes => router.main.children
+      // routes.forEach((route) => {
+      //   router.addRoute('main', route)
+      // })
     }
   },
   getters: {},
