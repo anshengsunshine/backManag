@@ -10,9 +10,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-circle-close">
-            <el-icon><Right /></el-icon>退出登录</el-dropdown-item
-          >
+          <el-dropdown-item> <i-ep-Right />退出登录</el-dropdown-item>
           <el-dropdown-item divided>用户信息</el-dropdown-item>
           <el-dropdown-item>系统管理</el-dropdown-item>
         </el-dropdown-menu>

@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'notFound',
+    name: 'not-found',
     component: () => import('@/views/not-found/not-found.vue')
   }
 ]
@@ -37,6 +37,9 @@ router.beforeEach((to) => {
       return '/login'
     }
   }
+  // console.log(router.getRoutes())
+  // console.log(to) // route对象
+
   if (to.path.indexOf('/main') !== -1) {
     if (to.name === 'notFound') {
       to.name = 'user'
