@@ -9,8 +9,9 @@ import 'normalize.css'
 import './assets/css/index.less'
 
 const app = createApp(App)
-app.use(router)
+
 app.use(store)
 setupStore()
-
+// path: /user => user
+app.use(router)
 app.mount('#app')
