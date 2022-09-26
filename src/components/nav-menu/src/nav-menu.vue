@@ -5,7 +5,7 @@
       <span v-if="!collapse" class="title">Vue3+TS</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"
@@ -25,7 +25,7 @@
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item
                 :index="subitem.id + ''"
-                @click="handeMenuItemClick(subitem)"
+                @click="handleMenuItemClick(subitem)"
               >
                 <i v-if="subitem.icon" :class="subitem.icon"></i>
                 <span>{{ subitem.name }}</span>
@@ -46,9 +46,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+
+import { pathMapToMenu } from '@/utils/map-menus'
 
 // vuex - typescript  => pinia
 
@@ -60,19 +62,30 @@ export default defineComponent({
     }
   },
   setup() {
+    // store
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
 
+    // router
     const router = useRouter()
-    const handeMenuItemClick = (item: any) => {
+    const route = useRoute()
+    const currentPath = route.path
+
+    // data
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    const defaultValue = ref(menu.id + '')
+
+    // event handle
+    const handleMenuItemClick = (item: any) => {
+      console.log('--------')
       router.push({
         path: item.url ?? '/not-found'
       })
     }
-
     return {
       userMenus,
-      handeMenuItemClick
+      defaultValue,
+      handleMenuItemClick
     }
   }
 })
@@ -108,7 +121,7 @@ export default defineComponent({
   }
 
   // 目录
-  .el-sub-menu {
+  .el-submenu {
     background-color: #001529 !important;
     // 二级菜单 ( 默认背景 )
     .el-menu-item {
@@ -117,7 +130,7 @@ export default defineComponent({
     }
   }
 
-  ::v-deep .el-sub-menu__title {
+  ::v-deep .el-submenu__title {
     background-color: #001529 !important;
   }
 
