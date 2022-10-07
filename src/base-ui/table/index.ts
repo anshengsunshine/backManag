@@ -1,3 +1,3 @@
-import HyTable from './src/table.vue'
+import AsTable from './src/Table.vue'
 
-export default HyTable
+export default AsTable

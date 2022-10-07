@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     IEpRight: typeof import('~icons/ep/right')['default']
     NavHeader: typeof import('./src/components/nav-header/src/nav-header.vue')['default']
     NavMenu: typeof import('./src/components/nav-menu/src/nav-menu.vue')['default']
+    PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserInfo: typeof import('./src/components/nav-header/src/user-info.vue')['default']
