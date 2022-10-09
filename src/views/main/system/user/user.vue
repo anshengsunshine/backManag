@@ -21,6 +21,12 @@
         <template #createAt="scope">
           <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
         </template>
+        <template #handler>
+          <div class="handle-btns">
+            <el-button size="small" link>编辑</el-button>
+            <el-button size="small" link>删除</el-button>
+          </div>
+        </template>
       </as-table>
     </div>
   </div>
@@ -74,7 +80,8 @@ export default defineComponent({
         label: "更新时间",
         minWidth: "250",
         slotName: "updateAt"
-      }
+      },
+      { label: "操作", minWidth: "120", slotName: "handler" }
     ]
 
     return {
