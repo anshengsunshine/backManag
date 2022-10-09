@@ -38,15 +38,19 @@ export default defineComponent({
     contentTableConfig: {
       type: Object,
       require: true
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   components: {
     AsTable
   },
-  setup() {
+  setup(props) {
     const store = useStore()
     store.dispatch("system/getPageListAction", {
-      pageUrl: "/users/list",
+      pageName: props.pageName,
       queryInfo: {
         offset: 0,
         size: 10
@@ -57,7 +61,7 @@ export default defineComponent({
       console.log(val)
     }
 
-    const userList = computed(() => store.state.system.userList)
+    const userList = computed(() => store.state.system.usersList)
     // const userCount = computed(() => store.state.system.userCount);
     return {
       userList,
