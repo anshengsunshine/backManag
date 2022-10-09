@@ -1,5 +1,5 @@
-import { IBreadcrumb } from '@/base-ui/breadcrumb'
-import { RouteRecordRaw } from 'vue-router'
+import { IBreadcrumb } from "@/base-ui/breadcrumb"
+import { RouteRecordRaw } from "vue-router"
 
 let firstMenu: any = null
 
@@ -8,9 +8,9 @@ export function MapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
 
   // 1.先去加载默认所有的routes
   const allRoutes: RouteRecordRaw[] = []
-  const routeFiles = require.context('../router/main', true, /\.ts/)
+  const routeFiles = require.context("../router/main", true, /\.ts/)
   routeFiles.keys().forEach((key) => {
-    const route = require('../router/main' + key.split('.')[1])
+    const route = require("../router/main" + key.split(".")[1])
     allRoutes.push(route.default)
   })
 

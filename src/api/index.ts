@@ -1,7 +1,7 @@
-import ASRequest from './request'
-import { BASE_URL, TIME_OUT } from './request/config'
+import ASRequest from "./request"
+import { BASE_URL, TIME_OUT } from "./request/config"
 
-import localCache from '@/utils/cache'
+import localCache from "@/utils/cache"
 
 const asRequest = new ASRequest({
   baseURL: BASE_URL,
@@ -9,7 +9,7 @@ const asRequest = new ASRequest({
   interceptors: {
     requestInterceptor: (config) => {
       // 携带 token 拦截
-      const token = localCache.getCache('token')
+      const token = localCache.getCache("token")
       if (token) {
         config.headers!.Authorization = `Bearer ${token}`
       }

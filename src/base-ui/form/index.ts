@@ -1,5 +1,5 @@
-import AsForm from './src/Form.vue'
+import AsForm from "./src/Form.vue"
 
-export * from './types'
+export * from "./types"
 
 export default AsForm

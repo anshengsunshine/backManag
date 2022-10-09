@@ -13,25 +13,25 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
-import UserInfo from './user-info.vue'
-import AsBreadcrumb from '@/base-ui/breadcrumb'
+import { computed, defineComponent, ref } from "vue"
+import UserInfo from "./user-info.vue"
+import AsBreadcrumb from "@/base-ui/breadcrumb"
 
-import { useStore } from '@/store'
-import { useRoute } from 'vue-router'
-import { pathMapBreadcrumbs } from '@/utils/map-menus'
+import { useStore } from "@/store"
+import { useRoute } from "vue-router"
+import { pathMapBreadcrumbs } from "@/utils/map-menus"
 
 export default defineComponent({
   components: {
     UserInfo,
     AsBreadcrumb
   },
-  emits: ['foldChange'],
+  emits: ["foldChange"],
   setup(props, { emit }) {
     const isFold = ref(false)
     const handleFoldClick = () => {
       isFold.value = !isFold.value
-      emit('foldChange', isFold.value)
+      emit("foldChange", isFold.value)
     }
 
     // 面包屑的数据: [{name: , path: }]

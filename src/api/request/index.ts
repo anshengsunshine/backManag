@@ -1,8 +1,8 @@
-import axios from 'axios'
-import type { AxiosInstance } from 'axios'
-import type { ASRequestInterceptors, ASRequestConfig } from './type'
-import { ElLoading } from 'element-plus'
-import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
+import axios from "axios"
+import type { AxiosInstance } from "axios"
+import type { ASRequestInterceptors, ASRequestConfig } from "./type"
+import { ElLoading } from "element-plus"
+import { LoadingInstance } from "element-plus/lib/components/loading/src/loading"
 
 const DEFAULT_LOADING = true
 
@@ -39,8 +39,8 @@ class ASRequest {
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
-            text: '正在请求数据……',
-            background: 'rgba(0,0,0,0.5)'
+            text: "正在请求数据……",
+            background: "rgba(0,0,0,0.5)"
           })
         }
 
@@ -59,7 +59,7 @@ class ASRequest {
         this.loading?.close()
 
         const data = res.data
-        if (data.retureCode === '-1001') {
+        if (data.retureCode === "-1001") {
           // console.log('请求失败,错误信息')
         } else {
           return data
@@ -71,7 +71,7 @@ class ASRequest {
         this.loading?.close()
         // 判断不同的 HttpErrorCode 显示不同的错误信息
         if (err.response.status === 404) {
-          console.log('404的错误')
+          console.log("404的错误")
         }
         return err
       }
@@ -114,16 +114,16 @@ class ASRequest {
   }
 
   get<T>(config: ASRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'GET' })
+    return this.request<T>({ ...config, method: "GET" })
   }
   post<T>(config: ASRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'POST' })
+    return this.request<T>({ ...config, method: "POST" })
   }
   delete<T>(config: ASRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'DELETE' })
+    return this.request<T>({ ...config, method: "DELETE" })
   }
   patch<T>(config: ASRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'PATCH' })
+    return this.request<T>({ ...config, method: "PATCH" })
   }
 }
 

@@ -1,5 +1,5 @@
-import AsBreadcrumb from './src/breadcrumb.vue'
+import AsBreadcrumb from "./src/breadcrumb.vue"
 
-export * from './types'
+export * from "./types"
 
 export default AsBreadcrumb

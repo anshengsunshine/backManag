@@ -1,3 +1,3 @@
-import AsTable from './src/Table.vue'
+import AsTable from "./src/Table.vue"
 
 export default AsTable

@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import AsForm from '@/base-ui/form'
+import { defineComponent, ref } from "vue"
+import AsForm from "@/base-ui/form"
 
 export default defineComponent({
   props: {
@@ -30,11 +30,11 @@ export default defineComponent({
   },
   setup() {
     const formData = ref({
-      id: '',
-      name: '',
-      password: '',
-      sport: '',
-      createTime: ''
+      id: "",
+      name: "",
+      password: "",
+      sport: "",
+      createTime: ""
     })
 
     return {

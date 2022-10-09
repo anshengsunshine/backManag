@@ -46,11 +46,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
-import { useStore } from '@/store'
-import { useRouter, useRoute } from 'vue-router'
+import { defineComponent, computed, ref } from "vue"
+import { useStore } from "@/store"
+import { useRouter, useRoute } from "vue-router"
 
-import { pathMapToMenu } from '@/utils/map-menus'
+import { pathMapToMenu } from "@/utils/map-menus"
 
 // vuex - typescript  => pinia
 
@@ -73,13 +73,13 @@ export default defineComponent({
 
     // data
     const menu = pathMapToMenu(userMenus.value, currentPath)
-    const defaultValue = ref(menu.id + '')
+    const defaultValue = ref(menu.id + "")
 
     // event handle
     const handleMenuItemClick = (item: any) => {
-      console.log('--------')
+      console.log("--------")
       router.push({
-        path: item.url ?? '/not-found'
+        path: item.url ?? "/not-found"
       })
     }
     return {

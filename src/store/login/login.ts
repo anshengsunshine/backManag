@@ -1,21 +1,21 @@
-import { Module } from 'vuex'
-import { IRootState } from '../type'
-import { ILoginState } from './type'
-import localCache from '@/utils/cache'
-import { MapMenusToRoutes } from '@/utils/map-menus'
+import { Module } from "vuex"
+import { IRootState } from "../type"
+import { ILoginState } from "./type"
+import localCache from "@/utils/cache"
+import { MapMenusToRoutes } from "@/utils/map-menus"
 import {
   accountLoginRequest,
   requestUserInfoById,
   requestUserMenusById
-} from '@/api/login/login'
-import { IAccount } from '@/api/login/type'
-import router from '@/router'
+} from "@/api/login/login"
+import { IAccount } from "@/api/login/type"
+import router from "@/router"
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
     return {
-      token: '',
+      token: "",
       userInfo: {},
       userMenus: []
     }
@@ -30,55 +30,55 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
 
-      console.log('注册动态路由')
+      console.log("注册动态路由")
       MapMenusToRoutes(userMenus)
       // userMenus => routes
       const routes = MapMenusToRoutes(userMenus)
 
       // 将routes => router.main.children
       routes.forEach((route) => {
-        router.addRoute('main', route)
+        router.addRoute("main", route)
       })
     }
   },
   getters: {},
   actions: {
     async accountLoginAction({ commit }, payload: IAccount) {
-      console.log('执行accountLoginAction', payload)
+      console.log("执行accountLoginAction", payload)
       // 1.实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
-      commit('changeToken', token)
-      localCache.setCache('token', token)
+      commit("changeToken", token)
+      localCache.setCache("token", token)
 
       // 2.请求用户信息
       const userInfoResult = await requestUserInfoById(id)
       const userInfo = userInfoResult.data
-      commit('changeUserInfo', userInfo)
-      localCache.setCache('userInfo', userInfo)
+      commit("changeUserInfo", userInfo)
+      localCache.setCache("userInfo", userInfo)
 
       // 3.请求用户的菜单
       const userMenuResult = await requestUserMenusById(userInfo.role.id)
       const userMenus = userMenuResult.data
-      commit('changeUserMenus', userMenus)
-      localCache.setCache('userMenus', userMenus)
+      commit("changeUserMenus", userMenus)
+      localCache.setCache("userMenus", userMenus)
 
       // 4. 跳转到首页
-      router.push('/main')
+      router.push("/main")
     },
 
     loadLocalLogin({ commit }) {
-      const token = localCache.getCache('token')
+      const token = localCache.getCache("token")
       if (token) {
-        commit('changeToken', token)
+        commit("changeToken", token)
       }
-      const userInfo = localCache.getCache('userInfo')
+      const userInfo = localCache.getCache("userInfo")
       if (userInfo) {
-        commit('changeUserInfo', userInfo)
+        commit("changeUserInfo", userInfo)
       }
-      const userMenus = localCache.getCache('userMenus')
+      const userMenus = localCache.getCache("userMenus")
       if (userMenus) {
-        commit('changeUserMenus', userMenus)
+        commit("changeUserMenus", userMenus)
       }
     }
 

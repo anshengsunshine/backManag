@@ -1,7 +1,7 @@
-import { IRootState } from '@/store/type'
-import { Module } from 'vuex'
-import { ISystemState } from './type'
-import { getPageListData } from '@/api/main/system/system'
+import { IRootState } from "@/store/type"
+import { Module } from "vuex"
+import { ISystemState } from "./type"
+import { getPageListData } from "@/api/main/system/system"
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -30,8 +30,8 @@ const systemModule: Module<ISystemState, IRootState> = {
         payload.queryInfo
       )
       const { list, totalCount } = pageResult.data
-      commit('changeUserList', list)
-      commit('changeUserCount', totalCount)
+      commit("changeUserList", list)
+      commit("changeUserCount", totalCount)
     }
   }
 }
