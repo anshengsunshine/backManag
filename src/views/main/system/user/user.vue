@@ -6,10 +6,16 @@
       <as-table
         :listData="userList"
         :propList="propList"
+        :title="title"
         :showIndexColumn="showIndexColumn"
         :showSelectColumn="showSelectColumn"
         @selection-change="handleSelectionChange"
       >
+        <!-- 1.header中的插槽 -->
+        <template #headerHandler>
+          <el-button type="primary">新建用户</el-button>
+        </template>
+        <!-- 2.列中的插槽 -->
         <template #status="scope">
           <el-button
             plain
@@ -55,6 +61,7 @@ export default defineComponent({
       }
     })
 
+    const title = ref("用户列表")
     const showIndexColumn = ref(true)
     const showSelectColumn = ref(true)
     const handleSelectionChange = (val: any) => {
@@ -88,6 +95,7 @@ export default defineComponent({
       searchFormConfig,
       userList,
       propList,
+      title,
       showIndexColumn,
       showSelectColumn,
       handleSelectionChange
