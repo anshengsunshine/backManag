@@ -1,6 +1,6 @@
 <template>
   <as-table
-    :listData="userList"
+    :listData="dataList"
     v-bind="contentTableConfig"
     @selection-change="handleSelectionChange"
   >
@@ -61,10 +61,12 @@ export default defineComponent({
       console.log(val)
     }
 
-    const userList = computed(() => store.state.system.usersList)
+    const dataList = computed(() =>
+      store.getters[`system/pageListData`](props.pageName)
+    )
     // const userCount = computed(() => store.state.system.userCount);
     return {
-      userList,
+      dataList,
       handleSelectionChange
     }
   }
