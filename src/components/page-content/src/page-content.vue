@@ -3,6 +3,7 @@
     :listData="dataList"
     :listCount="dataCount"
     v-bind="contentTableConfig"
+    v-model:page="pageInfo"
   >
     <!-- 1.header中的插槽 -->
     <template #headerHandler>
