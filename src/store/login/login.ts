@@ -1,15 +1,19 @@
 import { Module } from "vuex"
-import { IRootState } from "../type"
-import { ILoginState } from "./type"
-import localCache from "@/utils/cache"
-import { MapMenusToRoutes } from "@/utils/map-menus"
+
 import {
   accountLoginRequest,
   requestUserInfoById,
   requestUserMenusById
 } from "@/api/login/login"
-import { IAccount } from "@/api/login/type"
+
+import localCache from "@/utils/cache"
+import { MapMenusToRoutes, mapMenusToPermissions } from "@/utils/map-menus"
+
 import router from "@/router"
+
+import { IAccount } from "@/api/login/type"
+import { IRootState } from "../type"
+import { ILoginState } from "./type"
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -17,7 +21,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: "",
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   mutations: {
@@ -39,6 +44,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute("main", route)
       })
+
+      // 获取用户按钮的权限
+      const permissions = mapMenusToPermissions(userMenus)
+      state.permissions = permissions
     }
   },
   getters: {},
@@ -81,10 +90,6 @@ const loginModule: Module<ILoginState, IRootState> = {
         commit("changeUserMenus", userMenus)
       }
     }
-
-    // phoneLoginAction({ commit }, payload: any) {
-    //   console.log('phoneLoginAction', payload)
-    // }
   }
 }
 
