@@ -109,7 +109,7 @@ export function mapMenusToPermissions(userMenus: any[]) {
     }
   }
   _recurseGetPermission(userMenus)
-
+  console.log("00---", permissions)
   return permissions
 }
 
